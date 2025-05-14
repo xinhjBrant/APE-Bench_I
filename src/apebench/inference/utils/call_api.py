@@ -68,12 +68,6 @@ def create_client(model_name: str):
             api_version="2024-03-01-preview",
             api_key=aws_claude_api_key,
         )
-    elif 'gemini' in model_name:
-        return openai.AzureOpenAI(
-            azure_endpoint=google_base_url,
-            api_version="2024-03-01-preview",
-            api_key=google_api_key,
-        )
     else:
         return openai.AzureOpenAI(
             azure_endpoint=openai_base_url,

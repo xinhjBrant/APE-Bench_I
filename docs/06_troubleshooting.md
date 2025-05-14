@@ -132,7 +132,3 @@ Next: [Development and Contribution Guide](./07_development_contribution.md)
         *   对于推理，如果您的 API 配额和本地资源允许，请考虑跨多个任务并行化 API 调用（`src/apebench/scripts/` 中的脚本可能已经这样做了）。
 
 如果您遇到此处未列出的问题，请检查项目的现有 GitHub 问题（如果可用），或考虑报告一个新问题并提供详细信息：重现步骤、错误消息、相关配置和环境详细信息。
-
----
-
-Next: [Development and Contribution Guide](./07_development_contribution.md) 
