@@ -1,0 +1,95 @@
+project_dir: "./"
+output_dir: "./outputs"
+temp_dir: "./temp"
+progress_log: "./progress/config_progress.json"
+input_file: "./datasets/ape_bench1_test.parquet"
+
+# Data collection configuration
+data_collection:
+  # Dataset directory
+  dataset_dir: "datasets"
+  # Code repository information
+  repo_url: "https://github.com/leanprover-community/mathlib4.git"
+  repo_path: "mathlib4"
+  # Data collection parameters
+  max_diff_lines: 100
+  latest_num_data: 2000
+  # Model configuration
+  instruction_model: "aws_sdk_claude37_sonnet@thinking"
+  judgement_model: "aws_sdk_claude37_sonnet@thinking"
+  max_workers: 8
+  max_tokens: 20000
+  thinking_budget_tokens: 16000
+
+generation:
+  base_output_dir: "./outputs/patch"
+  parallel_models: true
+  parallel_configs: false
+  max_model_workers: 16
+  models:
+    - name: "deepseek-v3-250324"
+      configs:
+        - temperature: 0.0
+          n_responses: 1
+          max_workers: 48
+        - temperature: 0.6
+          n_responses: 20
+          max_workers: 48
+    - name: "aws_sdk_claude37_sonnet"
+      configs:
+        - temperature: 0.0
+          n_responses: 1
+          max_workers: 4
+        - temperature: 0.6
+          n_responses: 20
+          max_workers: 4
+    - name: "aws_sdk_claude37_sonnet@thinking"
+      configs:
+        - temperature: 0.0
+          n_responses: 20
+          max_workers: 8
+    - name: "deepseek-r1-250120"
+      configs:
+        - temperature: 0.0
+          n_responses: 1
+          max_workers: 32
+        - temperature: 0.6
+          n_responses: 20
+          max_workers: 32
+    - name: "gpt-4o-2024-08-06"
+      configs:
+        - temperature: 0.0
+          n_responses: 1
+          max_workers: 4
+        - temperature: 0.6
+          n_responses: 20
+          max_workers: 4
+    - name: "doubao-1-5-pro-32k-250115"
+      configs:
+        - temperature: 0.0
+          n_responses: 1
+          max_workers: 32
+        - temperature: 0.6
+          n_responses: 20
+          max_workers: 64
+    - name: "o3-mini"
+      configs:
+        - temperature: 0.0
+          n_responses: 20
+          max_workers: 4
+
+verification:
+  eleanstic_config: "./src/eleanstic/config.yaml"
+  results_dir: "./verify_results"
+  max_workers: 128
+
+judgement:
+  model_name: "aws_sdk_claude37_sonnet@thinking"
+  temperature: 0.0
+  n_responses: 4
+  max_workers: 8
+
+evaluation:
+  k_ratio: 0.8
+  generate_plots: true
+  plots_dir: "./plots" 

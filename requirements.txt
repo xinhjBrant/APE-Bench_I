@@ -1,0 +1,11 @@
+pandas
+python-Levenshtein
+tiktoken
+matplotlib
+pydantic
+portalocker
+colorlog
+plotly
+kaleido
+openai
+tenacity

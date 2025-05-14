@@ -1,0 +1,61 @@
+# Eleanstic Environment Configuration File
+
+# Base Path Configuration
+paths:
+  # Main Mathlib4 Git Repository Path
+  mathlib_repo: "mathlib4"
+  # Workspace Root Directory
+  workspace_root: "verify_database"
+  # Worktree Root Directory
+  worktree_dir: "worktrees"
+  # Content Storage Root Directory
+  storage_dir: "storage"
+  # Cache Directory
+  cache_dir: "cache"
+  # Log Directory
+  log_dir: "logs"
+  # Verification Results Directory
+  verify_results_dir: "./verify_results"
+
+# Concurrency Settings
+concurrency:
+  # Maximum Worker Processes
+  max_workers: 128
+  # Maximum Parallel File Storage Threads
+  max_concurrent_file_storage: 8
+  # Maximum Parallel Lean Verification Threads
+  max_concurrent_lean_verifications: 64
+
+# Storage Settings
+storage:
+  # Hash Algorithm (xxhash64/sha256)
+  hash_algorithm: "sha256"
+  # Whether to Delete Cache After Build
+  remove_worktree_after_build: true
+
+# Cache Settings
+cache:
+  # Number of Download Retries
+  download_retries: 10
+  # Download Timeout (seconds)
+  download_timeout: 3600
+  # Wait Time Between Retry Attempts (seconds)
+  retry_wait: 30
+
+# Logging Settings
+logging:
+  # Log Level (DEBUG/INFO/WARNING/ERROR/CRITICAL)
+  level: "INFO"
+  # Maximum Log File Size (MB)
+  max_size_mb: 100
+  # Number of Log Files to Keep
+  backup_count: 10
+  # Whether to Output to Console
+  console_output: true
+  # Whether to Use Colored Logs
+  color_output: true
+
+# Verification Settings
+verification:
+  # Verification Timeout (seconds)
+  timeout: 120

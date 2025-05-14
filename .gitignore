@@ -1,0 +1,18 @@
+.DS_Store
+datasets/
+__pycache__/
+.vscode
+mathlib4/
+./*.parquet
+results*/
+temp/
+temp_data_sync/
+chat_logs/
+# outputs/
+# logs/
+sync_for_verify/
+analyze_outputs/
+old_*/
+*.log
+verify_database/
+plots/
