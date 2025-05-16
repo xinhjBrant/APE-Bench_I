@@ -1,5 +1,5 @@
 from ..inference_pipelines.base import BasePipeline
-from ..utils.diff_repair import DiffRepair, apply_diff
+from ..utils.diff_repair import DiffRepair, apply_diff, generate_diff
 from ..utils.call_api import REASONING_MODELS
 import re
 import logging
@@ -54,7 +54,6 @@ class GeneratePatchPipeline(BasePipeline):
             if patch_match:
                 patch = patch_match.group(1).strip()
                 result['gen_patch'] = patch
-                best_gen_patch = patch
                 if not row['content_before']:
                     try:
                         result['gen_content_from_scratch'] = apply_diff(row['content_before'], patch)
@@ -65,19 +64,33 @@ class GeneratePatchPipeline(BasePipeline):
                     try:
                         repairer = DiffRepair(row['content_before'], patch, strict_match_threshold=self.strict_match_threshold, max_context_lines=self.max_context_lines, exact_match=True)
                         repaired_patch = repairer.repair()
-                        result['gen_patch_after_exact_repair'] = repaired_patch
-                        best_gen_patch = repaired_patch
-                        result['gen_content_after_exact_repair'] = apply_diff(row['content_before'], repaired_patch)
-                        best_gen_content = result['gen_content_after_exact_repair']
+                        
+                        # Apply the repaired patch to get the content
+                        repaired_content = apply_diff(row['content_before'], repaired_patch)
+                        result['gen_content_after_exact_repair'] = repaired_content
+                        
+                        # Generate actual diff between original and repaired content
+                        actual_diff = generate_diff(row['content_before'], repaired_content)
+                        result['gen_patch_after_exact_repair'] = actual_diff
+                        
+                        best_gen_patch = actual_diff
+                        best_gen_content = repaired_content
                     except Exception as e:
                         pass
                     try:
                         repairer = DiffRepair(row['content_before'], patch, strict_match_threshold=self.strict_match_threshold, max_context_lines=self.max_context_lines, exact_match=False)
                         repaired_patch = repairer.repair()
-                        result['gen_patch_after_robust_repair'] = repaired_patch
-                        best_gen_patch = repaired_patch
-                        result['gen_content_after_robust_repair'] = apply_diff(row['content_before'], repaired_patch)
-                        best_gen_content = result['gen_content_after_robust_repair']
+                        
+                        # Apply the repaired patch to get the content
+                        repaired_content = apply_diff(row['content_before'], repaired_patch)
+                        result['gen_content_after_robust_repair'] = repaired_content
+                        
+                        # Generate actual diff between original and repaired content
+                        actual_diff = generate_diff(row['content_before'], repaired_content)
+                        result['gen_patch_after_robust_repair'] = actual_diff
+                        
+                        best_gen_patch = actual_diff
+                        best_gen_content = repaired_content
                     except Exception as e:
                         pass
             result['best_gen_content'] = best_gen_content

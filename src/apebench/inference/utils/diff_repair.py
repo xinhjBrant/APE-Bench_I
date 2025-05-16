@@ -899,6 +899,38 @@ def apply_diff(original_code: str, diff_text: str) -> str:
     
     return patched_code
 
+def generate_diff(original_content: str, new_content: str) -> str:
+    """
+    Generate a unified diff between original content and new content.
+    
+    Args:
+        original_content: Original content
+        new_content: New content
+        
+    Returns:
+        String containing the unified diff
+    """
+    # Split content into lines
+    original_lines = original_content.splitlines(True) if original_content else []
+    new_lines = new_content.splitlines(True) if new_content else []
+    
+    # Generate diff
+    diff_generator = difflib.unified_diff(
+        original_lines, 
+        new_lines,
+        fromfile='a/file',
+        tofile='b/file',
+        n=3  # Context lines
+    )
+    
+    # Join diff lines into a single string
+    diff_text = ''.join(diff_generator)
+    
+    # Ensure diff ends with a newline
+    if diff_text and not diff_text.endswith('\n'):
+        diff_text += '\n'
+    
+    return diff_text
 
 def process_repair_chunk(chunk_data, strict_match_threshold: float = 0.5, exact_match: bool = False):
     """
@@ -942,11 +974,15 @@ def process_repair_chunk(chunk_data, strict_match_threshold: float = 0.5, exact_
                     repaired_diff = repairer.repair()
                     # Use apply_diff to apply the repaired diff
                     content_after_gen_diff = apply_diff(original_code, repaired_diff)
+                    
+                    # Generate actual diff between original and new content
+                    actual_diff = generate_diff(original_code, content_after_gen_diff)
+                    
                     chunk_stats[model_name]['success'] += 1
                     chunk_successful_matches.append({
                         **row,
                         'gen_diff': gen_diff,
-                        'repaired_diff': repaired_diff,
+                        'repaired_diff': actual_diff,  # Use the accurate diff instead
                         'content_after_gen_diff': content_after_gen_diff,
                         'raw_response': raw_response
                     })
