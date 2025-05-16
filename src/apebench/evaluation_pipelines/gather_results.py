@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+# Copyright (2025) Bytedance Ltd. and/or its affiliates.
 """
 Filter high-quality data entries from ApeBench pipeline results.
 

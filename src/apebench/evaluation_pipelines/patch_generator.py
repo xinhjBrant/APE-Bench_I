@@ -1,3 +1,4 @@
+# Copyright (2025) Bytedance Ltd. and/or its affiliates.
 """
 Patch Generation Management Module, responsible for executing the patch generation workflow
 """

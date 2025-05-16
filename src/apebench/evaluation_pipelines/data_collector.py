@@ -1,3 +1,4 @@
+# Copyright (2025) Bytedance Ltd. and/or its affiliates.
 """
 Data Collection Management Module, responsible for executing the dataset creation workflow
 """
