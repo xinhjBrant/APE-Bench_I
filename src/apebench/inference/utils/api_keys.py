@@ -1,3 +1,5 @@
+# Copyright (2025) Bytedance Ltd. and/or its affiliates.
+
 # API keys and endpoints for different language models
 # Fill in your actual API keys in this file
 

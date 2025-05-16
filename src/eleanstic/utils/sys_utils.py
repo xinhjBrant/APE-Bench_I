@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+# Copyright (2025) Bytedance Ltd. and/or its affiliates.
 """
 A script to find and kill all processes containing a specific command pattern
 """

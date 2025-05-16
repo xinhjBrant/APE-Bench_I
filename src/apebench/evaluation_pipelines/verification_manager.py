@@ -1,3 +1,4 @@
+# Copyright (2025) Bytedance Ltd. and/or its affiliates.
 """
 Verification management module responsible for executing the patch verification process
 """

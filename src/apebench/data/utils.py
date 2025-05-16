@@ -1,3 +1,4 @@
+# Copyright (2025) Bytedance Ltd. and/or its affiliates.
 from multiprocessing import Pool, cpu_count
 import Levenshtein
 import pandas as pd

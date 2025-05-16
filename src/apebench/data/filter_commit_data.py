@@ -1,3 +1,4 @@
+# Copyright (2025) Bytedance Ltd. and/or its affiliates.
 """
 MathLib4 Commits Analysis
 A modular implementation for analyzing MathLib4 repository commits.

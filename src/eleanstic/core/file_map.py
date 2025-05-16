@@ -1,3 +1,5 @@
+# Copyright (2025) Bytedance Ltd. and/or its affiliates.
+
 """
 File Mapping Manager Module
 Responsible for storing and retrieving file mapping relationships for each commit

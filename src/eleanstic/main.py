@@ -1,3 +1,5 @@
+# Copyright (2025) Bytedance Ltd. and/or its affiliates.
+
 """
 Eleanstic Main Program Entry
 Provides a unified entry point for batch building and verification of commits

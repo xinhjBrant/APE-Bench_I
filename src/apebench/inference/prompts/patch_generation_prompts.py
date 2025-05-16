@@ -1,3 +1,5 @@
+# Copyright (2025) Bytedance Ltd. and/or its affiliates.
+
 patch_generation_system_prompt = """You are given a set of **Task Descriptions**, each specifying modifications to an existing Lean 4 codebase (which may be optional or only partially provided). Your goal is to generate a **unified diff patch** that implements **only** the specified changes in **Lean 4 syntax**, ensuring strict adherence to Lean 4 conventions.
 
 Follow these steps:

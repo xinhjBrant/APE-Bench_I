@@ -1,4 +1,5 @@
-#!/usr/bin/env python3
+# Copyright (2025) Bytedance Ltd. and/or its affiliates.
+
 """
 Patch verification script, runs the patch verification process according to configuration.
 """

@@ -1,3 +1,4 @@
+# Copyright (2025) Bytedance Ltd. and/or its affiliates.
 """
 Prompt Templates Used in the Inference Process
 """

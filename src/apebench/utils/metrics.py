@@ -1,3 +1,5 @@
+# Copyright (2025) Bytedance Ltd. and/or its affiliates.
+
 """
 Evaluation metrics calculation module, refactored based on temp_fix.py
 """

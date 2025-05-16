@@ -1,3 +1,5 @@
+# Copyright (2025) Bytedance Ltd. and/or its affiliates.
+
 """
 Configuration Management Module
 Responsible for loading and validating system configuration files, providing a unified configuration access interface

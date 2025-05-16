@@ -1,3 +1,5 @@
+# Copyright (2025) Bytedance Ltd. and/or its affiliates.
+
 #!/usr/bin/env python3
 """
 Patch generation script, runs the patch generation process according to configuration.

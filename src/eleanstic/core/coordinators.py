@@ -1,3 +1,5 @@
+# Copyright (2025) Bytedance Ltd. and/or its affiliates.
+
 """
 Build Coordinator Module
 Responsible for compilation and build process

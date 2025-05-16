@@ -1,4 +1,5 @@
-# utils/colors.py
+# Copyright (2025) Bytedance Ltd. and/or its affiliates.
+
 from copy import deepcopy
 import random
 import numpy as np

@@ -1,3 +1,5 @@
+# Copyright (2025) Bytedance Ltd. and/or its affiliates.
+
 """
 Progress tracking manager, used to record and manage the execution progress of the evaluation process
 """

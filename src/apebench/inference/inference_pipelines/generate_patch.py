@@ -1,3 +1,5 @@
+# Copyright (2025) Bytedance Ltd. and/or its affiliates.
+
 from ..inference_pipelines.base import BasePipeline
 from ..utils.diff_repair import DiffRepair, apply_diff, generate_diff
 from ..utils.call_api import REASONING_MODELS

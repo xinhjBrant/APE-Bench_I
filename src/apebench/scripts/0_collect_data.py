@@ -1,3 +1,5 @@
+# Copyright (2025) Bytedance Ltd. and/or its affiliates.
+
 #!/usr/bin/env python3
 """
 Data collection script that runs the dataset creation process according to configuration.

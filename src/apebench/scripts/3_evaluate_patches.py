@@ -1,3 +1,5 @@
+# Copyright (2025) Bytedance Ltd. and/or its affiliates.
+
 #!/usr/bin/env python3
 """
 Patch evaluation script, runs the patch evaluation process according to configuration.

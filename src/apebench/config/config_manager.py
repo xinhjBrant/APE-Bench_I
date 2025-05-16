@@ -1,3 +1,4 @@
+# Copyright (2025) Bytedance Ltd. and/or its affiliates.
 """
 Configuration management module responsible for loading, validating, and providing access to configurations
 """

@@ -1,3 +1,5 @@
+# Copyright (2025) Bytedance Ltd. and/or its affiliates.
+
 judgement_generation_system_prompt = '''## Task
 Analyze the provided Lean4 code patch comprehensively to determine whether it correctly, completely, and clearly implements the specified tasks. The patch has already been verified by Lean's type checker, thus types and tactics are assumed correct. Your goal is to provide a thorough yet contextually flexible evaluation, assessing how well the patch aligns with task requirements and integrates into the existing codebase.
 

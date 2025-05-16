@@ -1,3 +1,5 @@
+# Copyright (2025) Bytedance Ltd. and/or its affiliates.
+
 instruction_generation_system_prompt = '''# Task Overview
 
 Your goal is to transform given Lean code modifications (diffs) for a given Lean file into structured, precise, and self-contained Lean exercises suitable for practicing mathematical reasoning and proof engineering. Each generated exercise should be concise yet comprehensive enough for practitioners to reconstruct the exact changes based solely on the provided exercise.

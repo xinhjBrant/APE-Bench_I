@@ -1,3 +1,5 @@
+# Copyright (2025) Bytedance Ltd. and/or its affiliates.
+
 from dataclasses import dataclass
 from typing import List, Tuple, Optional, Dict
 import difflib

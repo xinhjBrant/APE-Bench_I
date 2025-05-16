@@ -1,3 +1,5 @@
+# Copyright (2025) Bytedance Ltd. and/or its affiliates.
+
 """
 eleanstic 核心模块，提供配置和协调功能
 """

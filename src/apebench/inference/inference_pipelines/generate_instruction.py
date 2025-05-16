@@ -1,3 +1,5 @@
+# Copyright (2025) Bytedance Ltd. and/or its affiliates.
+
 from ...inference.inference_pipelines.base import BasePipeline
 import re
 import logging
