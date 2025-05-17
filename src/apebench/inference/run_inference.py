@@ -54,7 +54,7 @@ def parse_arguments():
                       help="Key in the input data for the gold diff (for instruction pipeline)")
     
     # Arguments specific to the judgment pipeline
-    parser.add_argument("--patch_key", type=str, default="best_gen_patch", 
+    parser.add_argument("--patch_key", type=str, default="best_gen_patch_comment_free", 
                       help="Key in the input data for the patch to judge (for judgment pipeline)")
     
     # Arguments specific to the patch pipeline

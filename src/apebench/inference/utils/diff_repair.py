@@ -1,5 +1,3 @@
-# Copyright (2025) Bytedance Ltd. and/or its affiliates.
-
 from dataclasses import dataclass
 from typing import List, Tuple, Optional, Dict
 import difflib
@@ -136,7 +134,7 @@ class DiffRepair:
             if line.startswith("@@"):
                 if current_hunk:
                     hunks.append(current_hunk)
-                # Parse hunk header
+                # [CRITICAL] **The original hunk header is not trustworthy, we shall omit it with a dummy line spread and fix it later**
                 parts = line.split("@@")
                 current_hunk = Hunk(0, 0, [])
                 # Extract content after header if any
@@ -769,13 +767,46 @@ class DiffRepair:
         
         return '\n'.join(diff_lines).strip() + '\n'
 
-    def repair(self) -> str:
+    def repair(self) -> Tuple[Optional[str], Optional[str]]:
         """
-        Repair the entire diff, properly accounting for line offsets between hunks.
+        Repair the entire diff.
+        If the diff is a single hunk that's effectively a pure addition 
+        (intended for new file creation or full replacement), 
+        it returns (None, new_file_content).
+        Otherwise, it returns (repaired_diff_text, None).
         
         Returns:
-            A string containing the repaired diff with correct headers
+            A tuple (repaired_diff_text, new_file_content_if_pure_add_create)
         """
+        # Check for single, effectively pure-addition hunk scenario
+        if len(self.hunks) == 1:
+            hunk = self.hunks[0]
+            
+            # A line is considered 'substantive' if it's a '+', '-', or a non-blank ' ' (context)
+            # These are lines that define the structure or changes, not just empty formatting lines.
+            substantive_lines = [
+                line for line in hunk.lines 
+                if (line.prefix == '+' or
+                    line.prefix == '-' or
+                    (line.prefix == ' ' and line.content.strip()))
+            ]
+            
+            is_effectively_pure_add = False
+            if substantive_lines: # If hunk is not empty or only blank context lines
+                is_effectively_pure_add = True
+                for line in substantive_lines:
+                    if line.prefix != '+':
+                        is_effectively_pure_add = False
+                        break
+            
+            if is_effectively_pure_add:
+                # This hunk consists only of additions when considering substantive lines.
+                # Construct the new content directly from all '+' lines in the original hunk,
+                # preserving their order.
+                new_content_lines = [line.content for line in hunk.lines if line.prefix == '+']
+                return None, "\n".join(new_content_lines)
+
+        # Original repair logic follows if not the special case
         repaired_hunks = []
         
         # 第一阶段：仅修复各个hunk，不关注line_offset
@@ -825,7 +856,7 @@ class DiffRepair:
             cumulative_offset += line_adjustment
         
         # 生成最终的diff
-        return self._generate_final_diff(final_hunks)
+        return self._generate_final_diff(final_hunks), None
 
     def _filter_overlapping_hunks(self, sorted_hunks: List[Hunk]) -> List[Hunk]:
         """
@@ -973,18 +1004,28 @@ def process_repair_chunk(chunk_data, strict_match_threshold: float = 0.5, exact_
                 raw_response['choices'] = [raw_response['choices'][idx]]
                 try:
                     repairer = DiffRepair(original_code, gen_diff, strict_match_threshold, max_context_lines=3, exact_match=exact_match)
-                    repaired_diff = repairer.repair()
-                    # Use apply_diff to apply the repaired diff
-                    content_after_gen_diff = apply_diff(original_code, repaired_diff)
+                    repaired_diff_text, full_new_content = repairer.repair()
                     
-                    # Generate actual diff between original and new content
-                    actual_diff = generate_diff(original_code, content_after_gen_diff)
-                    
+                    content_after_gen_diff: Optional[str]
+                    actual_diff_to_store: Optional[str]
+
+                    if full_new_content is not None:
+                        # Special case: repairer determined it's a full content replacement
+                        content_after_gen_diff = full_new_content
+                        actual_diff_to_store = generate_diff(original_code, full_new_content)
+                    elif repaired_diff_text is not None:
+                        # Standard case: repairer returned a patchable diff
+                        content_after_gen_diff = apply_diff(original_code, repaired_diff_text)
+                        actual_diff_to_store = generate_diff(original_code, content_after_gen_diff)
+                    else:
+                        # Repair failed to produce either, treat as failure for this item
+                        raise Exception("DiffRepair.repair() returned (None, None), indicating an issue.")
+
                     chunk_stats[model_name]['success'] += 1
                     chunk_successful_matches.append({
                         **row,
                         'gen_diff': gen_diff,
-                        'repaired_diff': actual_diff,  # Use the accurate diff instead
+                        'repaired_diff': actual_diff_to_store,  # Use the accurate diff
                         'content_after_gen_diff': content_after_gen_diff,
                         'raw_response': raw_response
                     })
