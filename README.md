@@ -1,3 +1,13 @@
+## ⚠️ DEPRECATED REPOSITORY
+
+**This repository is no longer maintained. Please visit the new repository:**
+
+🔗 **New Repository**: [https://github.com/xinhjBrant/APE-Bench](https://github.com/xinhjBrant/APE-Bench)
+
+📄 **Latest Paper**: [https://arxiv.org/abs/2504.19110v3](https://arxiv.org/abs/2504.19110v3)
+
+---
+
 [English](#english-version) | [中文](#chinese-version)
 <a name="english-version"></a>
 
