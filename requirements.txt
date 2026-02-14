@@ -9,3 +9,7 @@ plotly
 kaleido
 openai
 tenacity
+PyYAML
+pyarrow
+psutil
+GitPython
